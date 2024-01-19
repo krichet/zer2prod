@@ -44,8 +44,6 @@ services:
       - redis
     networks:
       - application
-    ports:
-      - "8000:8000"
 
 volumes:
   dbdata:
