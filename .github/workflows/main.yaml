@@ -13,7 +13,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
      
-    # - name: Rust setup
+    # - name: Rust setupp
     #   uses: actions/setup-rust@v1
     #   with:
     #     rust-version: stable
@@ -32,10 +32,6 @@ jobs:
     - name: Login to Amazon ECR
       run: |
         aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 851725641243.dkr.ecr.us-east-2.amazonaws.com
-
-    - name: Login to Amazon ECR
-      run: |
-        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 851725641243.dkr.ecr.us-east-2.amazonaws.com        
 
     - name: Docker build for AWS
       run: docker build -t zero2prod .
