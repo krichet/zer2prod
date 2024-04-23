@@ -1,4 +1,4 @@
-name: zero2 ci
+name: zero2 cd
 
 on:
   push:
@@ -13,13 +13,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
      
-    - name: Rust setup
-      uses: actions/setup-rust@v1
-      with:
-        rust-version: stable
+    # - name: Rust setup
+    #   uses: actions/setup-rust@v1
+    #   with:
+    #     rust-version: stable
 
-    - name: Build and test
-      run: cargo build --release
+    # - name: Build and test
+    #   run: cargo build --release
 
     - name: AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
