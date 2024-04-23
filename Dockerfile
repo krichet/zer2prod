@@ -15,6 +15,7 @@ RUN cargo build --release
 # Runtime stage
 FROM debian:bookworm-slim AS runtime
 RUN apt-get update -y \
+    && apt-get install curl -y \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
     # Clean up
     && apt-get autoremove -y \

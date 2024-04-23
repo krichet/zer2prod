@@ -5,10 +5,10 @@ email_client:
   base_url: "https://api.postmarkapp.com"
   sender_email: "something@gmail.com"
 database:
-  host: "db"
+  host: "postgres.chsquq2sgymf.us-east-2.rds.amazonaws.com"
   port: 5432
   username: "postgres"
-  password: "password"
+  password: "postgres"
   database_name: "postgres"
   require_ssl: false
-redis_url: "redis://redis:6379"
+redis_url: "redis://rediszero2prod-r4jcne.serverless.use2.cache.amazonaws.com:6379"

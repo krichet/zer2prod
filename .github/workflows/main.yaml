@@ -1,0 +1,39 @@
+name: zero2 ci
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+     
+    - name: Rust setup
+      uses: actions/setup-rust@v1
+      with:
+        rust-version: stable
+
+    - name: Build and test
+      run: cargo build --release
+
+    - name: AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+      run: |
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 996899389712.dkr.ecr.us-east-1.amazonaws.com
+
+    - name: Pull Docker image
+      run: docker pull 996899389712.dkr.ecr.us-east-1.amazonaws.com/zero2:latest
+
+    - name: Restart Rust App
+      run: ssh -i /home/ubuntu/zero2.pem ubuntu@ec2-54-163-199-15.compute-1.amazonaws.com 'sudo docker-compose -f /home/ubuntu/docker-compose2.yml up -d'
