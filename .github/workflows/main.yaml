@@ -26,14 +26,27 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        aws-region: us-east-2
 
     - name: Login to Amazon ECR
       run: |
-        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 996899389712.dkr.ecr.us-east-1.amazonaws.com
+        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 851725641243.dkr.ecr.us-east-2.amazonaws.com
 
-    - name: Pull Docker image
-      run: docker pull 996899389712.dkr.ecr.us-east-1.amazonaws.com/zero2:latest
+    - name: Login to Amazon ECR
+      run: |
+        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 851725641243.dkr.ecr.us-east-2.amazonaws.com        
 
-    - name: Restart Rust App
-      run: ssh -i /home/ubuntu/zero2.pem ubuntu@ec2-54-163-199-15.compute-1.amazonaws.com 'sudo docker-compose -f /home/ubuntu/docker-compose2.yml up -d'
+    - name: Docker build for AWS
+      run: docker build -t zero2prod .
+
+    - name: Tag created image
+      run: docker tag zero2prod:latest 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:latest
+
+    - name: Push image to AWS
+      run: docker push 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:latest
+
+    - name: Rerun task in AWS with a new image
+      run: aws ecs update-service --cluster zero2prod-arm-cluster --service zero2prod-service --force-new-deployment
+
+    # - name: Restart Rust App
+    #   run: ssh -i /home/ubuntu/zero2.pem ubuntu@ec2-54-163-199-15.compute-1.amazonaws.com 'sudo docker-compose -f /home/ubuntu/docker-compose2.yml up -d'
