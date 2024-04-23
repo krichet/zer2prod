@@ -34,7 +34,7 @@ jobs:
         aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 851725641243.dkr.ecr.us-east-2.amazonaws.com
 
     - name: Docker build for AWS
-      run: docker build -t zero2prod --platform=linux/arm64 .
+      run: docker build -t zero2prod --platform=linux/arm64/v8 .
 
     - name: Tag created image
       run: docker tag zero2prod:latest 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:latest
