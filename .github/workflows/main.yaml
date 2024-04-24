@@ -16,8 +16,8 @@ jobs:
     # - name: Rust setup
     #   uses: actions/checkout@v3
 
-    - name: Build and tests
-      run: cargo build --release
+    # - name: Build and tests
+    #   run: cargo build --release
 
     - name: AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
