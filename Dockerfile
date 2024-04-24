@@ -14,7 +14,7 @@ ENV SQLX_OFFLINE true
 RUN cargo build --release
 # Runtime stage
 
-FROM --platform=arm64 debian:bookworm-slim AS runtime
+FROM --platform=$BUILDPLATFORM debian:bookworm-slim AS runtime
 RUN apt-get update -y \
     && apt-get install curl -y \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
