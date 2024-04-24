@@ -6,7 +6,6 @@
 # FROM chef AS builder
 # COPY --from=planner /app/recipe.json recipe.json
 # Build dependencies - this is the caching Docker layer!
-FROM --platform=arm64 zero2prod
 FROM rust:latest as builder
 WORKDIR /app
 # Build application
@@ -15,7 +14,7 @@ ENV SQLX_OFFLINE true
 RUN cargo build --release
 # Runtime stage
 
-FROM debian:bookworm-slim AS runtime
+FROM --platform=arm64 debian:bookworm-slim AS runtime
 RUN apt-get update -y \
     && apt-get install curl -y \
     && apt-get install -y --no-install-recommends openssl ca-certificates \

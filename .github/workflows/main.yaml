@@ -15,8 +15,6 @@ jobs:
      
     - name: Rust setup
       uses: actions/checkout@v3
-      # with:
-      #   rust-version: stable
 
     - name: Build and tests
       run: cargo build --release
