@@ -13,13 +13,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
      
-    # - name: Rust setup
-    #   uses: actions/setup-rust@v1
-    #   with:
-    #     rust-version: stable
+    - name: Rust setup
+      uses: actions/checkout@v3
+      # with:
+      #   rust-version: stable
 
-    # - name: Build and tests
-    #   run: cargo build --release
+    - name: Build and tests
+      run: cargo build --release
 
     - name: AWS CLI
       uses: aws-actions/configure-aws-credentials@v1
