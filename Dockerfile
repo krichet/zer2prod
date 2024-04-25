@@ -8,7 +8,7 @@
 # Build dependencies - this is the caching Docker layer!
 FROM --platform=$BUILDPLATFORM rust:latest as builder
 WORKDIR /app
-# Build application
+# Build applicationn
 COPY . .
 ENV SQLX_OFFLINE true
 RUN cargo build --release
