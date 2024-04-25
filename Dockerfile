@@ -6,7 +6,7 @@
 # FROM chef AS builder
 # COPY --from=planner /app/recipe.json recipe.json
 # Build dependencies - this is the caching Docker layer!
-FROM rust:latest as builder
+FROM --platform=$BUILDPLATFORM rust:latest as builder
 WORKDIR /app
 # Build application
 COPY . .
