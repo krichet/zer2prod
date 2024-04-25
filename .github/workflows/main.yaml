@@ -34,6 +34,9 @@ jobs:
     - name: Docker build for AWS
       run: docker build -t zero2prod --platform=linux/arm64 .
 
+    - name: Check image details
+      run: docker inspect zero2prod
+
     - name: Tag created image
       run: docker tag zero2prod:latest 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:latest
 
