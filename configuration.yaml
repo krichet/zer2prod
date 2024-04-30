@@ -2,11 +2,11 @@ application:
   port: 8000
   hmac_secret: "super-long-and-secret-random-key-needed-to-verify-message-integrity"
 database:
-  host: "postgres.chsquq2sgymf.us-east-2.rds.amazonaws.com"
+  host: POSTGRES_HOST
   port: 5432
-  username: "postgres"
-  password: "postgres"
-  database_name: "postgres"
+  username: POSTGRES_USERNAME
+  password: POSTGRES_PASSWORD
+  database_name: POSTGRES_DBNAME
   require_ssl: false
 email_client:
   base_url: "localhost"

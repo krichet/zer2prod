@@ -14,7 +14,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3      
+      uses: docker/setup-qemu-action@v3
      
     # - name: Rust setup
     #   uses: actions/checkout@v3
@@ -35,13 +35,13 @@ jobs:
         aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 851725641243.dkr.ecr.us-east-2.amazonaws.com
 
     - name: Docker build for AWS
-      run: docker buildx build -t zero2prod --platform=linux/arm64 .
+      run: docker buildx build -t zero2prod:newtag --platform=linux/arm64 .
 
     - name: Check image details
       run: docker inspect zero2prod
 
     - name: Tag created image
-      run: docker tag zero2prod:latest 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:latest
+      run: docker tag zero2prod:newtag 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:newtag
 
     - name: Push image to AWS
       run: docker push 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:latest

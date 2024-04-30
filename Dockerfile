@@ -30,4 +30,9 @@ COPY --from=builder /app/target/release/zero2prod zero2prod
 COPY configuration.yaml .
 COPY configuration.production.yaml .
 ENV APP_ENVIRONMENT production
+ENV POSTGRES_USERNAME=$Postgres.username \
+    POSTGRES_PASSWORD=$Postgres.password \
+    POSTGRES_HOST=$Postgres.host \
+    POSTGRES_PORT=$Postgres.port \
+    POSTGRES_DBNAME=$Postgres.dbname
 ENTRYPOINT ["./zero2prod"]
