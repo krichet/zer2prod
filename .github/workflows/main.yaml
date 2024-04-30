@@ -16,7 +16,7 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
      
-    # - name: Rust setup
+    # - name: Rust setupp
     #   uses: actions/checkout@v3
 
     # - name: Build and tests
@@ -35,16 +35,16 @@ jobs:
         aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 851725641243.dkr.ecr.us-east-2.amazonaws.com
 
     - name: Docker build for AWS
-      run: docker buildx build -t zero2prod:newtag --platform=linux/arm64 .
+      run: docker buildx build -t zero2prod:newtag2 --platform=linux/arm64 .
 
     - name: Check image details
       run: docker inspect zero2prod
 
     - name: Tag created image
-      run: docker tag zero2prod:newtag 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:newtag
+      run: docker tag zero2prod:newtag2 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:newtag2
 
     - name: Push image to AWS
-      run: docker push 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:latest
+      run: docker push 851725641243.dkr.ecr.us-east-2.amazonaws.com/zero2prod:newtag2
 
     - name: Rerun task in AWS with a new image
       run: aws ecs update-service --cluster zero2prod-arm-cluster --service zero2prod-service --force-new-deployment
